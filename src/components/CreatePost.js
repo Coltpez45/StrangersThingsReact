@@ -6,15 +6,17 @@ function CreatePost({ token, getPosts }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
   
   async function handleSubmit(event) {
     event.preventDefault();
-    const post = {title, description, price}
+    const post = {title, description, price, location}
     
     const results = await makePost(post, token)
     
     if (results.success) {
       getPosts();
+      alert('Your post was successfully created!');
     }
   }
   
@@ -38,6 +40,12 @@ function CreatePost({ token, getPosts }) {
         value={price}
         onChange={({target: {value}}) => {setPrice(value)}}
       />
+      <input 
+        type='text'
+        placeholder='Enter Location'
+        value={location}
+        onChange={({target: {value}}) => {setLocation(value)}}
+      />  
       <button type='submit'>Create Post</button>
       <Link to='/'>Go Home</Link>
     </form>
